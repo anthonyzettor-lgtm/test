@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="🗡️ Roublard - Gamification des habitudes basée sur Yu-Kai Chou et Atomic Habits">
+    <meta name="theme-color" content="#2d4a3d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Roublard">
+    
+    <link rel="manifest" href="./manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%232d4a3d' width='180' height='180'/><text x='90' y='96' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>">
+    
+    <title>🗡️ Roublard - Gamification des Habitudes</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #d4e8dd 0%, #e8f5f2 100%);
+            min-height: 100vh;
+            color: #1a3a2a;
+        }
+        
+        body {
+            padding: 1rem;
+            overflow-x: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2d4a3d 0%, #1a3a2a 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        header h1 {
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        header .stats {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+        }
+        
+        header .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        header .stat-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        
+        header .stat-label {
+            font-size: 0.75rem;
+            opacity: 0.9;
+        }
+        
+        #installBanner {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            background: white;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 1000;
+            max-width: 280px;
+        }
+        
+        #installBanner.hidden {
+            display: none;
+        }
+        
+        #installBtn {
+            background: linear-gradient(135deg, #2d4a3d, #1a3a2a);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            margin-top: 0.75rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        #installBtn:hover {
+            transform: scale(1.05);
+        }
+        
+        nav.tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            background: rgba(255,255,255,0.8);
+            padding: 1rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn {
+            background-color: #5a7a6a;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .tab-btn:hover {
+            background-color: #6a8a7a;
+            transform: translateY(-2px);
+        }
+        
+        .tab-btn.active {
+            background-color: #2d4a3d;
+            border-bottom: 4px solid #FFD700;
+        }
+        
+        main {
+            background: rgba(255,255,255,0.95);
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            min-height: 400px;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        #notification {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            z-index: 2000;
+            animation: slideIn 0.3s ease-out;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        #notification.hidden {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            header h1 {
+                justify-content: center;
+            }
+            
+            header .stats {
+                justify-content: center;
+            }
+            
+            nav.tabs {
+                flex-direction: column;
+            }
+            
+            .tab-btn {
+                width: 100%;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            header {
+                padding: 1rem;
+            }
+            
+            header h1 {
+                font-size: 1.25rem;
+            }
+            
+            main {
+                padding: 0.75rem;
+                border-radius: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <h1>🗡️ Roublard</h1>
+        <div class="stats">
+            <div class="stat-item">
+                <span class="stat-label">Niveau</span>
+                <span class="stat-value" id="charLevel">Niv. 1</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">XP</span>
+                <div style="width: 120px; height: 20px; background: #e8e8e8; border-radius: 10px; overflow: hidden; border: 2px solid #2d4a3d;">
+                    <div id="xpBar" style="height: 100%; background: linear-gradient(90deg, #FFD700, #FFA500); width: 0%; transition: width 0.3s;"></div>
+                </div>
+                <span id="xpText" style="font-size: 0.75rem;">0/100</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">❤️ Vitalité</span>
+                <div style="width: 120px; height: 20px; background: #e8e8e8; border-radius: 10px; overflow: hidden; border: 2px solid #2d4a3d; margin: 0.25rem 0;" id="hpBarContainer">
+                    <div id="hpBar" style="height: 100%; background: #22c55e; width: 100%; transition: width 0.3s;"></div>
+                </div>
+                <span id="hpText" style="font-size: 0.75rem;">100/100</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">⚡ Énergie</span>
+                <span class="stat-value" id="energieText">200</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">📈 Momentum</span>
+                <span class="stat-value" id="momentumText">x1.0</span>
+            </div>
+        </div>
+    </header>
+    
+    <!-- INSTALL BANNER -->
+    <div id="installBanner" class="hidden">
+        <div style="font-weight: bold; color: #1a3a2a;">Installer l'app</div>
+        <button id="installBtn" onclick="GameApp.installApp()">📥 Installer sur écran d'accueil</button>
+        <button onclick="GameApp.hideInstallBanner()" style="width: 100%; background: #e8e8e8; color: #1a3a2a; border: none; padding: 0.5rem; border-radius: 0.4rem; margin-top: 0.5rem; cursor: pointer; font-weight: bold;">Fermer</button>
+    </div>
+    
+    <!-- NAVIGATION TABS -->
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="GameApp.showTab('main')">🎯 Habitudes</button>
+        <button class="tab-btn" onclick="GameApp.showTab('quests')">⚔️ Boss</button>
+        <button class="tab-btn" onclick="GameApp.showTab('shop')">🛍️ Shop</button>
+        <button class="tab-btn" onclick="GameApp.showTab('equipment')">🛡️ Équipements</button>
+        <button class="tab-btn" onclick="GameApp.showTab('pro')">💼 Projet Pro</button>
+        <button class="tab-btn" onclick="GameApp.showTab('poids')">⚖️ Poids</button>
+        <button class="tab-btn" onclick="GameApp.showTab('achievements')">🏆 Achievements</button>
+        <button class="tab-btn" onclick="GameApp.showTab('journal')">📖 Journal</button>
+        <button class="tab-btn" onclick="GameApp.showTab('calendar')">📅 Calendrier</button>
+    </nav>
+    
+    <!-- MAIN CONTENT -->
+    <main>
+        <div id="tab-main" class="tab-content active"></div>
+        <div id="tab-quests" class="tab-content"></div>
+        <div id="tab-shop" class="tab-content"></div>
+        <div id="tab-equipment" class="tab-content"></div>
+        <div id="tab-pro" class="tab-content"></div>
+        <div id="tab-poids" class="tab-content"></div>
+        <div id="tab-achievements" class="tab-content"></div>
+        <div id="tab-journal" class="tab-content"></div>
+        <div id="tab-calendar" class="tab-content"></div>
+    </main>
+    
+    <!-- NOTIFICATION -->
+    <div id="notification" class="hidden"></div>
+    
+    <!-- SCRIPT UNIQUE (TOUS LES FICHIERS FUSIONNÉS) -->
+    <script src="./app-complet.js"></script>
+    
+    <!-- INITIALIZATION & PWA -->
+    <script>
+        let deferredPrompt = null;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').classList.remove('hidden');
+        });
+        
+        window.addEventListener('appinstalled', () => {
+            console.log('✅ App installée!');
+            deferredPrompt = null;
+            document.getElementById('installBanner').classList.add('hidden');
+        });
+        
+        // Initialisation au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM chargé');
+            
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('SW erreur:', err));
+            }
+            
+            if (window.GameApp?.loadGame) window.GameApp.loadGame();
+            if (window.GameApp?.checkDailyReset) window.GameApp.checkDailyReset();
+            if (window.GameApp?.render) window.GameApp.render();
+            
+            // Auto-save toutes les 30 sec
+            setInterval(() => {
+                if (window.GameApp?.saveGame) window.GameApp.saveGame();
+            }, 30000);
+            
+            // Prevent zoom involontaire
+            document.addEventListener('touchmove', function(e) {
+                if (e.scale !== 1) e.preventDefault();
+            }, { passive: false });
+        });
+    </script>
+</body>
+</html>
