@@ -319,7 +319,10 @@ window.GameApp = {
         document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         document.getElementById(`tab-${tabName}`).classList.add('active');
-        document.querySelector(`[onclick="GameApp.showTab('${tabName}')"]`).classList.add('active');
+        const btns = document.querySelectorAll('.tab-btn');
+        btns.forEach(b => {
+            if (b.textContent.includes(tabName)) b.classList.add('active');
+        });
         render();
     },
     render,
@@ -332,5 +335,3 @@ window.GameApp = {
     attackBoss,
     unlockAchievement
 };
-
-console.log('✅ Roublard chargé!');
