@@ -1,75 +1,19 @@
 {
-  "name": "🗡️ Roublard - Gamification des Habitudes",
+  "name": "🗡️ Roublard - Suivi d'habitudes",
   "short_name": "Roublard",
-  "description": "Gamifiez vos habitudes avec un système RPG complet",
+  "description": "Tracker d'habitudes minimaliste avec boss et achievements",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2d4a3d",
+  "background_color": "#0a0e27",
+  "theme_color": "#d4af37",
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232d4a3d' width='192' height='192'/><text x='96' y='110' font-size='100' fill='white' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>",
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230a0e27' width='192' height='192'/><text x='96' y='110' font-size='120' fill='%23d4af37' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>",
       "sizes": "192x192",
       "type": "image/svg+xml",
       "purpose": "any"
-    },
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%232d4a3d' width='512' height='512'/><text x='256' y='310' font-size='280' fill='white' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any"
-    }
-  ],
-  "categories": ["productivity", "lifestyle"],
-  "screenshots": [
-    {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23d4e8dd' width='540' height='720'/><rect fill='%232d4a3d' width='540' height='100'/><text x='270' y='55' font-size='40' fill='white' text-anchor='middle' dominant-baseline='middle'>🗡️ Roublard</text></svg>",
-      "sizes": "540x720",
-      "type": "image/svg+xml",
-      "form_factor": "narrow"
-    }
-  ],
-  "shortcuts": [
-    {
-      "name": "Habitudes",
-      "short_name": "Habitudes",
-      "description": "Accédez à vos habitudes",
-      "url": "./index.html?tab=main",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%235a7a6a' width='96' height='96'/><text x='48' y='60' font-size='50' text-anchor='middle' dominant-baseline='middle'>🎯</text></svg>",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "Boss",
-      "short_name": "Boss",
-      "description": "Combattez le boss quotidien",
-      "url": "./index.html?tab=quests",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%238b3a3a' width='96' height='96'/><text x='48' y='60' font-size='50' text-anchor='middle' dominant-baseline='middle'>⚔️</text></svg>",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
-        }
-      ]
-    },
-    {
-      "name": "Équipement",
-      "short_name": "Équipement",
-      "description": "Gérez vos équipements",
-      "url": "./index.html?tab=equipment",
-      "icons": [
-        {
-          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 96 96'><rect fill='%235a7a6a' width='96' height='96'/><text x='48' y='60' font-size='50' text-anchor='middle' dominant-baseline='middle'>🛡️</text></svg>",
-          "sizes": "96x96",
-          "type": "image/svg+xml"
-        }
-      ]
     }
   ]
 }
