@@ -3,16 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="🗡️ Roublard - Gamification des habitudes basée sur Yu-Kai Chou et Atomic Habits">
-    <meta name="theme-color" content="#2d4a3d">
+    <meta name="description" content="🗡️ Roublard - Suivi d'habitudes minimaliste">
+    <meta name="theme-color" content="#0a0e27">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Roublard">
-    
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%232d4a3d' width='180' height='180'/><text x='90' y='96' font-size='80' fill='white' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%230a0e27' width='180' height='180'/><text x='90' y='105' font-size='120' text-anchor='middle' dominant-baseline='middle'>🗡️</text></svg>">
     
-    <title>🗡️ Roublard - Gamification des Habitudes</title>
+    <title>🗡️ Roublard</title>
     
     <style>
         * {
@@ -22,135 +19,109 @@
         }
         
         html, body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #d4e8dd 0%, #e8f5f2 100%);
+            font-family: 'Segoe UI', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 100%);
             min-height: 100vh;
-            color: #1a3a2a;
+            color: #f5f5f5;
         }
         
         body {
             padding: 1rem;
-            overflow-x: hidden;
         }
         
         header {
-            background: linear-gradient(135deg, #2d4a3d 0%, #1a3a2a 100%);
-            color: white;
+            background: rgba(10, 14, 39, 0.95);
+            border-bottom: 3px solid #d4af37;
             padding: 1.5rem;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 0.5rem;
         }
         
         header h1 {
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+            font-weight: 300;
+            letter-spacing: 2px;
         }
         
-        header .stats {
-            display: flex;
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 1.5rem;
-            flex-wrap: wrap;
             font-size: 0.9rem;
         }
         
-        header .stat-item {
+        .stat-item {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            gap: 0.5rem;
         }
         
-        header .stat-value {
-            font-size: 1.25rem;
+        .stat-label {
+            color: #a0a0a0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            color: #d4af37;
             font-weight: bold;
         }
         
-        header .stat-label {
-            font-size: 0.75rem;
-            opacity: 0.9;
-        }
-        
-        #installBanner {
-            position: fixed;
-            bottom: 1rem;
-            right: 1rem;
-            background: white;
-            border-radius: 0.75rem;
-            padding: 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            z-index: 1000;
-            max-width: 280px;
-        }
-        
-        #installBanner.hidden {
-            display: none;
-        }
-        
-        #installBtn {
-            background: linear-gradient(135deg, #2d4a3d, #1a3a2a);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-weight: bold;
+        .xp-bar {
             width: 100%;
-            margin-top: 0.75rem;
-            transition: all 0.2s;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            height: 8px;
+            background: #1a1f3a;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #d4af37;
         }
         
-        #installBtn:hover {
-            transform: scale(1.05);
+        .xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #d4af37, #ff6b6b);
+            width: 0%;
+            transition: width 0.3s ease;
         }
         
         nav.tabs {
             display: flex;
             gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
             flex-wrap: wrap;
-            background: rgba(255,255,255,0.8);
-            padding: 1rem;
-            border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            background: rgba(10, 14, 39, 0.6);
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            border-left: 3px solid #d4af37;
         }
         
         .tab-btn {
-            background-color: #5a7a6a;
-            color: white;
+            background: transparent;
+            color: #a0a0a0;
             border: none;
             padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 500;
             transition: all 0.2s;
+            border-bottom: 2px solid transparent;
             font-size: 0.9rem;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
         
         .tab-btn:hover {
-            background-color: #6a8a7a;
-            transform: translateY(-2px);
+            color: #d4af37;
         }
         
         .tab-btn.active {
-            background-color: #2d4a3d;
-            border-bottom: 4px solid #FFD700;
+            color: #d4af37;
+            border-bottom: 2px solid #d4af37;
         }
         
         main {
-            background: rgba(255,255,255,0.95);
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            min-height: 400px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         
         .tab-content {
@@ -159,7 +130,7 @@
         
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.3s ease-in;
+            animation: fadeIn 0.3s ease;
         }
         
         @keyframes fadeIn {
@@ -167,16 +138,220 @@
             to { opacity: 1; }
         }
         
-        #notification {
+        .category {
+            background: rgba(26, 31, 58, 0.8);
+            border-left: 4px solid #ff6b6b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .category h3 {
+            color: #d4af37;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        
+        .habit-item {
+            background: rgba(10, 14, 39, 0.6);
+            border: 1px solid #2a2f5a;
+            border-radius: 0.4rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .habit-item:hover {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: #d4af37;
+        }
+        
+        .habit-item.done {
+            background: rgba(107, 155, 127, 0.2);
+            border-color: #6b9b7f;
+        }
+        
+        .habit-info {
+            flex: 1;
+        }
+        
+        .habit-name {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+        
+        .habit-meta {
+            font-size: 0.8rem;
+            color: #a0a0a0;
+        }
+        
+        .habit-streak {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        
+        .boss-card {
+            background: rgba(26, 31, 58, 0.8);
+            border: 2px solid #ff6b6b;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .boss-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .boss-title {
+            color: #d4af37;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+        
+        .boss-tier {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+        }
+        
+        .hp-bar {
+            width: 100%;
+            height: 12px;
+            background: #0a0e27;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid #ff6b6b;
+            margin-bottom: 1rem;
+        }
+        
+        .hp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8787);
+            width: 100%;
+            transition: width 0.3s ease;
+        }
+        
+        .boss-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: #a0a0a0;
+        }
+        
+        .attack-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #ff8787);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        
+        .attack-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .attack-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .achievement {
+            background: rgba(26, 31, 58, 0.8);
+            border: 1px solid #2a2f5a;
+            border-radius: 0.4rem;
+            padding: 1rem;
+            text-align: center;
+            display: inline-block;
+            width: 120px;
+            margin: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .achievement.unlocked {
+            border-color: #d4af37;
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .ach-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .ach-name {
+            font-size: 0.8rem;
+            color: #a0a0a0;
+            margin-bottom: 0.25rem;
+        }
+        
+        .ach-desc {
+            font-size: 0.7rem;
+            color: #666;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: rgba(26, 31, 58, 0.8);
+            border-left: 4px solid #d4af37;
+            border-radius: 0.4rem;
+            padding: 1.5rem;
+        }
+        
+        .stat-card-label {
+            color: #a0a0a0;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        .stat-card-value {
+            color: #d4af37;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        
+        .stat-card-change {
+            color: #6b9b7f;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+        
+        .notification {
             position: fixed;
             top: 1rem;
             right: 1rem;
+            background: #d4af37;
+            color: #0a0e27;
             padding: 1rem 1.5rem;
-            border-radius: 0.75rem;
-            font-weight: bold;
-            z-index: 2000;
-            animation: slideIn 0.3s ease-out;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            border-radius: 0.3rem;
+            font-weight: 600;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .notification.hidden {
+            display: none;
         }
         
         @keyframes slideIn {
@@ -190,49 +365,28 @@
             }
         }
         
-        #notification.hidden {
-            display: none;
+        input[type="number"] {
+            background: rgba(10, 14, 39, 0.8);
+            color: #d4af37;
+            border: 1px solid #d4af37;
+            padding: 0.5rem;
+            border-radius: 0.3rem;
+            width: 80px;
+            font-weight: bold;
         }
         
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                text-align: center;
-            }
-            
             header h1 {
-                justify-content: center;
+                font-size: 1.3rem;
             }
             
-            header .stats {
-                justify-content: center;
+            .stats {
+                grid-template-columns: 1fr 1fr;
             }
             
-            nav.tabs {
-                flex-direction: column;
-            }
-            
-            .tab-btn {
-                width: 100%;
-            }
-            
-            main {
-                padding: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            header {
-                padding: 1rem;
-            }
-            
-            header h1 {
-                font-size: 1.25rem;
-            }
-            
-            main {
-                padding: 0.75rem;
-                border-radius: 0.5rem;
+            .achievement {
+                width: 100px;
+                margin: 0.25rem;
             }
         }
     </style>
@@ -244,109 +398,57 @@
         <div class="stats">
             <div class="stat-item">
                 <span class="stat-label">Niveau</span>
-                <span class="stat-value" id="charLevel">Niv. 1</span>
+                <span class="stat-value" id="level">1</span>
             </div>
             <div class="stat-item">
                 <span class="stat-label">XP</span>
-                <div style="width: 120px; height: 20px; background: #e8e8e8; border-radius: 10px; overflow: hidden; border: 2px solid #2d4a3d;">
-                    <div id="xpBar" style="height: 100%; background: linear-gradient(90deg, #FFD700, #FFA500); width: 0%; transition: width 0.3s;"></div>
-                </div>
-                <span id="xpText" style="font-size: 0.75rem;">0/100</span>
+                <div class="xp-bar"><div class="xp-fill" id="xpFill"></div></div>
+                <span id="xpText" style="font-size: 0.85rem; color: #d4af37;">0/100</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">❤️ Vitalité</span>
-                <div style="width: 120px; height: 20px; background: #e8e8e8; border-radius: 10px; overflow: hidden; border: 2px solid #2d4a3d; margin: 0.25rem 0;" id="hpBarContainer">
-                    <div id="hpBar" style="height: 100%; background: #22c55e; width: 100%; transition: width 0.3s;"></div>
-                </div>
-                <span id="hpText" style="font-size: 0.75rem;">100/100</span>
+                <span class="stat-label">Heures (semaine)</span>
+                <span class="stat-value" id="weekHours">0h</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">⚡ Énergie</span>
-                <span class="stat-value" id="energieText">200</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-label">📈 Momentum</span>
-                <span class="stat-value" id="momentumText">x1.0</span>
+                <span class="stat-label">Aujourd'hui</span>
+                <span class="stat-value" id="todayCount">0/5</span>
             </div>
         </div>
     </header>
     
-    <!-- INSTALL BANNER -->
-    <div id="installBanner" class="hidden">
-        <div style="font-weight: bold; color: #1a3a2a;">Installer l'app</div>
-        <button id="installBtn" onclick="GameApp.installApp()">📥 Installer sur écran d'accueil</button>
-        <button onclick="GameApp.hideInstallBanner()" style="width: 100%; background: #e8e8e8; color: #1a3a2a; border: none; padding: 0.5rem; border-radius: 0.4rem; margin-top: 0.5rem; cursor: pointer; font-weight: bold;">Fermer</button>
-    </div>
-    
-    <!-- NAVIGATION TABS -->
+    <!-- TABS -->
     <nav class="tabs">
-        <button class="tab-btn active" onclick="GameApp.showTab('main')">🎯 Habitudes</button>
-        <button class="tab-btn" onclick="GameApp.showTab('quests')">⚔️ Boss</button>
-        <button class="tab-btn" onclick="GameApp.showTab('shop')">🛍️ Shop</button>
-        <button class="tab-btn" onclick="GameApp.showTab('equipment')">🛡️ Équipements</button>
-        <button class="tab-btn" onclick="GameApp.showTab('pro')">💼 Projet Pro</button>
-        <button class="tab-btn" onclick="GameApp.showTab('poids')">⚖️ Poids</button>
+        <button class="tab-btn active" onclick="GameApp.showTab('habits')">📝 Habitudes</button>
+        <button class="tab-btn" onclick="GameApp.showTab('boss')">⚔️ Boss</button>
+        <button class="tab-btn" onclick="GameApp.showTab('stats')">📊 Stats</button>
         <button class="tab-btn" onclick="GameApp.showTab('achievements')">🏆 Achievements</button>
-        <button class="tab-btn" onclick="GameApp.showTab('journal')">📖 Journal</button>
-        <button class="tab-btn" onclick="GameApp.showTab('calendar')">📅 Calendrier</button>
     </nav>
     
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main>
-        <div id="tab-main" class="tab-content active"></div>
-        <div id="tab-quests" class="tab-content"></div>
-        <div id="tab-shop" class="tab-content"></div>
-        <div id="tab-equipment" class="tab-content"></div>
-        <div id="tab-pro" class="tab-content"></div>
-        <div id="tab-poids" class="tab-content"></div>
+        <div id="tab-habits" class="tab-content active"></div>
+        <div id="tab-boss" class="tab-content"></div>
+        <div id="tab-stats" class="tab-content"></div>
         <div id="tab-achievements" class="tab-content"></div>
-        <div id="tab-journal" class="tab-content"></div>
-        <div id="tab-calendar" class="tab-content"></div>
     </main>
     
     <!-- NOTIFICATION -->
-    <div id="notification" class="hidden"></div>
+    <div id="notification" class="notification hidden"></div>
     
-    <!-- SCRIPT UNIQUE (TOUS LES FICHIERS FUSIONNÉS) -->
-    <script src="./app-complet.js"></script>
+    <!-- SCRIPTS -->
+    <script src="./app.js"></script>
     
-    <!-- INITIALIZATION & PWA -->
     <script>
-        let deferredPrompt = null;
-        
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').classList.remove('hidden');
-        });
-        
-        window.addEventListener('appinstalled', () => {
-            console.log('✅ App installée!');
-            deferredPrompt = null;
-            document.getElementById('installBanner').classList.add('hidden');
-        });
-        
-        // Initialisation au chargement
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('DOM chargé');
-            
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('SW erreur:', err));
+                navigator.serviceWorker.register('./service-worker.js').catch(err => console.log('SW:', err));
             }
             
-            if (window.GameApp?.loadGame) window.GameApp.loadGame();
-            if (window.GameApp?.checkDailyReset) window.GameApp.checkDailyReset();
-            if (window.GameApp?.render) window.GameApp.render();
+            GameApp.loadGame();
+            GameApp.checkDailyReset();
+            GameApp.render();
             
-            // Auto-save toutes les 30 sec
-            setInterval(() => {
-                if (window.GameApp?.saveGame) window.GameApp.saveGame();
-            }, 30000);
-            
-            // Prevent zoom involontaire
-            document.addEventListener('touchmove', function(e) {
-                if (e.scale !== 1) e.preventDefault();
-            }, { passive: false });
+            setInterval(() => GameApp.saveGame(), 30000);
         });
     </script>
 </body>
